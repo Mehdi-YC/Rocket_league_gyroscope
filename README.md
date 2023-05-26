@@ -1,3 +1,10 @@
+## Controlling Rocket league with phone gyroscope from an API
+Reference :
+[MOZILLA DOCKS , DeviceOrientation API](https://developer.mozilla.org/en-US/docs/Web/API/Device_orientation_events/Detecting_device_orientation)
+[DEv.to Blog](https://dev.to/trekhleb/gyro-web-accessing-the-device-orientation-in-javascript-2492)
+
+![Alpha Beta Gamma](screenshots/01-cover.jpg)
+# Installation : 
 # create-svelte
 
 Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
@@ -24,7 +31,7 @@ npm run dev
 # or start the server and open the app in a new browser tab
 npm run dev -- --open
 ```
-
+![Alpha preview](screenshots/ss1.png)
 ## Building
 
 To create a production version of your app:
@@ -36,3 +43,18 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+# rust_server
+
+go to the rust_server folder , and run : 
+
+```bash
+cargo run 
+```
+
+now open your phone in your `https://<your-ip>:8443`
+
+run rocket league , toggle API and enjoy
+
+### the best Alpha Betta & gamma i know :
+![Alpha Beta Gamma ](screenshots/abg.jpg "The real Ones")
