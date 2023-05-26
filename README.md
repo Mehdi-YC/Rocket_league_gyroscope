@@ -1,15 +1,18 @@
 ## Controlling Rocket league with phone gyroscope from an API
 Reference :
 [MOZILLA DOCKS , DeviceOrientation API](https://developer.mozilla.org/en-US/docs/Web/API/Device_orientation_events/Detecting_device_orientation)
+
 [DEv.to Blog](https://dev.to/trekhleb/gyro-web-accessing-the-device-orientation-in-javascript-2492)
 
+
 ![Alpha Beta Gamma](screenshots/01-cover.jpg)
+
 # Installation : 
-# create-svelte
+
 
 Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
 
-## Creating a project
+## Creating a svelte project
 
 If you're seeing this, you've probably already done this step. Congrats!
 
@@ -56,5 +59,5 @@ now open your phone in your `https://<your-ip>:8443`
 
 run rocket league , toggle API and enjoy
 
-### the best Alpha Betta & gamma i know :
+### the best Alpha Beta & gamma i know :
 ![Alpha Beta Gamma ](screenshots/abg.jpg "The real Ones")
