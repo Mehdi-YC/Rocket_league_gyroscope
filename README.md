@@ -8,6 +8,13 @@ References :
 
 ![Alpha Beta Gamma](screenshots/01-cover.jpg)
 
+
+<figure class="video_container">
+  <video controls="true" allowfullscreen="true">
+    <source src="screenshots/ROCKET_GYROSCROPE.mov" type="video/mp4">
+  </video>
+</figure>
+
 # Installation : 
 
 
