@@ -1,5 +1,6 @@
 ## Controlling Rocket league with phone gyroscope from an API
-Reference :
+References :
+
 [MOZILLA DOCKS , DeviceOrientation API](https://developer.mozilla.org/en-US/docs/Web/API/Device_orientation_events/Detecting_device_orientation)
 
 [DEv.to Blog](https://dev.to/trekhleb/gyro-web-accessing-the-device-orientation-in-javascript-2492)
