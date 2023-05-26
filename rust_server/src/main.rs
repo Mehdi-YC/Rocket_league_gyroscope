@@ -8,13 +8,14 @@ use rustls::{Certificate, PrivateKey, ServerConfig};
 use rustls_pemfile::{certs, pkcs8_private_keys};
 
 
-static X_MIN: f64      = - 13.7;
-static X_MAX: f64      = 13.7;
+static X_MIN: f64      = -13.7;
+static X_MAX: f64      =  13.7;
+
 static Y_MIN: f64      = -35.5;
-static Y_MAX: f64      = 13.5;
+static Y_MAX: f64      =  13.5;
 
 static ACCEL_MIN : f64 = -25.0 ;
-static ACCEL_MAX : f64 = 25.0 ;
+static ACCEL_MAX : f64 =  25.0 ;
 
 
 // Send static files
@@ -42,10 +43,10 @@ async fn values(req: HttpRequest) ->  Result<String> {
     let boost     = v[7];
     let z_default = v[8]; 
 
-    let z_min: f64 = (z_default  - 15.0) % 360.0;
-    let z_max: f64 = (z_default  + 15.0) % 360.0;
+    let z_min: f64 = (z_default  - 17.0) % 360.0;
+    let z_max: f64 = (z_default  + 17.0) % 360.0;
     ////println!("{}",format!("Values :\nx : {}\ny : {}\nz : {}\n",v[0],v[1],v[2]));
-    send_event_keys(x ,y,z,alpha,beta,gamma,z_min,z_max,jump,boost);
+    send_event_keys_accel(x ,y,z,alpha,beta,gamma,z_min,z_max,jump,boost);
 
     Ok(format!("V"))
 }
@@ -212,6 +213,127 @@ fn send_event_keys(x :f64,y:f64,z:f64,alpha:f64,beta:f64,gamma:f64,z_min:f64,z_m
 
         }
         else if gamma < ACCEL_MIN {
+            send(&EventType::KeyPress(Key::LeftArrow));
+            send(&EventType::KeyRelease(Key::RightArrow));  
+            //println!("pressed LEFT ACCEL");
+
+
+        }
+        else{
+            send(&EventType::KeyRelease(Key::LeftArrow));
+            send(&EventType::KeyRelease(Key::RightArrow));   
+        }
+    }
+
+    // JUMP BOOST
+    if jump == 1.0{
+        send(&EventType::KeyPress(Key::Space));
+    }
+    else {
+        send(&EventType::KeyRelease(Key::Space));
+    }
+    if boost == 1.0{
+        send(&EventType::KeyPress(Key::UpArrow));
+    }
+    else {
+        send(&EventType::KeyRelease(Key::UpArrow));
+    }  
+}
+
+
+
+fn send_event_keys_accel(x :f64,y:f64,z:f64,alpha:f64,beta:f64,gamma:f64,z_min:f64,z_max:f64,jump:f64,boost:f64){
+    //Y
+    if  beta < ACCEL_MIN {
+        send(&EventType::KeyPress(Key::KeyW));
+        send(&EventType::KeyRelease(Key::KeyS)); 
+        //println!("pressed W forward");
+    }
+    else if   beta > ACCEL_MAX{
+        send(&EventType::KeyPress(Key::KeyS));
+        send(&EventType::KeyRelease(Key::KeyW));
+        //println!("pressed S backward");
+
+    }
+    else{
+        if y < Y_MIN {
+            send(&EventType::KeyPress(Key::KeyS));
+            send(&EventType::KeyRelease(Key::KeyW));
+            //println!("pressed S ACCEL");
+
+        }
+        else if y > Y_MAX {
+            
+            send(&EventType::KeyPress(Key::KeyW));
+            send(&EventType::KeyRelease(Key::KeyS)); 
+            //println!("pressed W ACCEL");
+
+        }
+        else{
+            send(&EventType::KeyRelease(Key::KeyW));
+            send(&EventType::KeyRelease(Key::KeyS));   
+            //println!("Released S and W");
+
+        }
+
+    }
+    //X
+    if  alpha > ACCEL_MAX {
+        send(&EventType::KeyPress(Key::KeyD));
+        send(&EventType::KeyRelease(Key::KeyA));
+        //println!("pressed D right");
+
+    }
+    else if   alpha < ACCEL_MIN {
+        send(&EventType::KeyPress(Key::KeyA));
+        send(&EventType::KeyRelease(Key::KeyD)); 
+        //println!("pressed A left");
+
+    }
+    else{
+        if x < X_MIN{
+            send(&EventType::KeyPress(Key::KeyA));
+            send(&EventType::KeyRelease(Key::KeyD)); 
+            //println!("pressed A accel");
+        }
+        else if x > X_MAX{
+            send(&EventType::KeyPress(Key::KeyD));
+            send(&EventType::KeyRelease(Key::KeyA));
+            //println!("pressed D accel");
+
+        }
+        else{
+            send(&EventType::KeyRelease(Key::KeyA));
+            send(&EventType::KeyRelease(Key::KeyD));
+            //println!("release A+D");
+
+        }
+    }
+
+    //Z
+    if gamma < ACCEL_MIN {
+        send(&EventType::KeyPress(Key::LeftArrow));
+        send(&EventType::KeyRelease(Key::RightArrow));  
+        //println!("pressed LEFT {} {}",z,z_max);
+
+
+    }
+    else if  gamma > ACCEL_MAX{
+        send(&EventType::KeyPress(Key::RightArrow));
+        send(&EventType::KeyRelease(Key::LeftArrow));
+        //println!("pressed RIGTH");
+
+
+    }
+    else{
+        if  z < z_min{
+            send(&EventType::KeyPress(Key::RightArrow));
+            send(&EventType::KeyRelease(Key::LeftArrow));
+            //println!("pressed RIGTH ACCEL");
+
+
+        }
+        else if z > z_max  {
             send(&EventType::KeyPress(Key::LeftArrow));
             send(&EventType::KeyRelease(Key::RightArrow));  
             //println!("pressed LEFT ACCEL");

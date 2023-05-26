@@ -34,6 +34,7 @@
     if (!API_toggle){
       x = -5.0
       y=0.0
+      z= default_z
       boost = 0.0
       jump = 0.0
       fetch(`/api?v=${x},${y},${z},${alpha},${beta},${gamma},${jump},${boost},${default_z}`);
